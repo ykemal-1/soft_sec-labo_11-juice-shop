@@ -13,16 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install CycloneDX locally
+      - name: Install CycloneDX tool locally
         run: npm install @cyclonedx/bom
 
-      - name: Install dependencies
+      - name: Install project dependencies
         run: npm install
 
-      - name: Generate SBOM and verify
-        run: |
-          npx bom -o sbom.json
-          ls -la
+      - name: Generate SBOM
+        run: npx @cyclonedx/bom -o sbom.json
 
       - name: Upload SBOM
         uses: actions/upload-artifact@v4
