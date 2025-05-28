@@ -2,7 +2,7 @@ name: Generate SBOM
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, main ]
   workflow_dispatch:
 
 jobs:
@@ -13,14 +13,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install CycloneDX tool locally
-        run: npm install @cyclonedx/bom
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install CycloneDX tool
+        run: npm install -g @cyclonedx/cyclonedx-npm
 
       - name: Install project dependencies
         run: npm install
 
       - name: Generate SBOM
-        run: npx @cyclonedx/bom -o sbom.json
+        run: cyclonedx-npm --output-file sbom.json
 
       - name: Upload SBOM
         uses: actions/upload-artifact@v4
