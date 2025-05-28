@@ -19,8 +19,8 @@ jobs:
       - name: Install project dependencies
         run: npm install
 
-      - name: Generate SBOM
-        run: npx bom -o sbom.json
+      - name: Generate SBOM in root folder
+        run: npx bom -o ./sbom.json
 
       - name: Upload SBOM
         uses: actions/upload-artifact@v4
