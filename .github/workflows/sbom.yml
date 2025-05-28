@@ -25,7 +25,7 @@ jobs:
         run: npm install
 
       - name: Generate SBOM
-        run: cyclonedx-npm --package-lock-only --output-format JSON --output-file sbom.json
+        run: cyclonedx-npm --output-format JSON --output-file sbom.json
 
       - name: Upload SBOM
         uses: actions/upload-artifact@v4
